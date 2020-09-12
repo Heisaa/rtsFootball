@@ -15,7 +15,7 @@ _global_script_classes=[ {
 "path": "res://Objects/Player/StateMachine/Idle.gd"
 }, {
 "base": "State",
-"class": "RunStaterun",
+"class": "RunState",
 "language": "GDScript",
 "path": "res://Objects/Player/StateMachine/Run.gd"
 }, {
@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "State",
 "language": "GDScript",
 "path": "res://Objects/Player/StateMachine/State.gd"
+}, {
+"base": "Node",
+"class": "StateFactory",
+"language": "GDScript",
+"path": "res://Objects/Player/StateMachine/StateFactory.gd"
 } ]
 _global_script_class_icons={
 "IdleState": "",
-"RunStaterun": "",
-"State": ""
+"RunState": "",
+"State": "",
+"StateFactory": ""
 }
 
 [application]

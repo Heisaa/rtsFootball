@@ -4,6 +4,9 @@ var selected = false
 var velocity = Vector3(0,0,0)
 var target = Vector3()
 
+var state
+var state_factory
+
 onready var outline = $MeshInstance/Outline
 onready var player_manager = get_node("../PlayerManager")
 
@@ -20,7 +23,7 @@ func set_selected(value: bool):
 			emit_signal("was_deselected", self)
 
 func set_target(pos: Vector3):
-	target = Vector3(pos.x, target.y, pos.z) 
+	state.set_target(pos)
 
 #################
 ### Game loop ###
@@ -30,23 +33,21 @@ func _ready():
 	connect("was_deselected", player_manager, "player_deselected")
 	
 	target = global_transform.origin
+	
+	state_factory = StateFactory.new()
+	change_state("idle")
 
 
-func _physics_process(_delta):
-	# Move player
-	if target.distance_to(global_transform.origin) > 0.2:
-		# Rotate
-		var angle = atan2(velocity.x, velocity.z)
-		var char_rot = get_rotation()
-		char_rot.y = angle
-		set_rotation(char_rot)
-		# Move
-		var move_vec = target - global_transform.origin
-		velocity = move_vec.normalized() * MOVE_SPEED
-		move_and_slide(velocity, Vector3(0, 1, 0))
-	else:
-		target = global_transform.origin
-
+###############
+### Utility ###
+###############
+func change_state(new_state_name):
+	if is_instance_valid(state):
+		state.queue_free()
+	state = state_factory.get_state(new_state_name).new()
+	#state.setup(funcref(self, "change_state"), self)
+	state.name = "current_state"
+	add_child(state)
 
 ###############
 ### Signals ###
