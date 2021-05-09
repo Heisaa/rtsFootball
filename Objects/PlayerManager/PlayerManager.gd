@@ -1,19 +1,31 @@
 extends Spatial
 
-var selected_players =[]
+const Player = preload("res://Objects/Player/Player.tscn")
+
+const all_players = []
+const selected_players =[]
 
 const ray_length = 1000
 
 onready var camera = get_node("../Camera")
+onready var ball = get_node("../Ball")
 
 
 #################
 ### Game loop ###
 #################
 func _ready():
-	pass
+	for i in range(0,5):
+		var player = Player.instance()
+		player.translation = Vector3(2, 0.95, i)
+		add_child(player)
+		all_players.append(player)
 
 func _process(_delta):
+	for player in all_players:
+		#player.set_target(ball.global_transform.origin)
+		pass
+	
 	var m_pos = get_viewport().get_mouse_position()
 	if Input.is_action_just_pressed("move_command"):
 		var ray_result = raycast_from_mouse(m_pos, 1)

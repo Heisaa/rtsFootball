@@ -3,11 +3,14 @@ extends State
 class_name IdleState
 
 func _ready():
-	pass # Replace with function body.
+	persistent_state.velocity = Vector3(0,0,0)
 
 
 func set_target(pos: Vector3):
+	print("target set in idle")
 	persistent_state.target = Vector3(pos.x, persistent_state.target.y, pos.z)
 	
-	if persistent_state.target.distance_to(persistent_state.global_transform.origin) < 0.2:
+	print(persistent_state.target.distance_to(persistent_state.global_transform.origin))
+	if persistent_state.target.distance_to(persistent_state.global_transform.origin) > 0.2:
+		print("changeing to run")
 		change_state.call_func("run")

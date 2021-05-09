@@ -1,10 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Objects/Player/StateMachine/State.gd" type="Script" id=2]
-[ext_resource path="res://Objects/Player/StateMachine/Idle.gd" type="Script" id=3]
-[ext_resource path="res://Objects/Player/StateMachine/Run.gd" type="Script" id=4]
-[ext_resource path="res://Objects/Player/StateMachine/StateFactory.gd" type="Script" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.0862745, 0.192157, 0.886275, 1 )
@@ -54,15 +50,4 @@ material/0 = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 shape = SubResource( 5 )
 
-[node name="State" type="Node" parent="."]
-script = ExtResource( 2 )
-
-[node name="Idle" type="Node" parent="State"]
-script = ExtResource( 3 )
-
-[node name="Run" type="Node" parent="State"]
-script = ExtResource( 4 )
-
-[node name="StateFactory" type="Node" parent="."]
-script = ExtResource( 5 )
 [connection signal="input_event" from="." to="." method="_on_Player_input_event"]

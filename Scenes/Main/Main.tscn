@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/textures/Grass_001_SD/Grass_001_NORM.jpg" type="Texture" id=1]
 [ext_resource path="res://assets/textures/Grass_001_SD/Grass_001_COLOR.jpg" type="Texture" id=2]
 [ext_resource path="res://Objects/PlayerManager/PlayerManager.gd" type="Script" id=3]
-[ext_resource path="res://Objects/Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/FPSLabel/Label.gd" type="Script" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -33,7 +32,6 @@ radius = 0.11
 [node name="Main" type="Spatial"]
 
 [node name="PlayerManager" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9071, 0.9, 0 )
 script = ExtResource( 3 )
 
 [node name="Pitch" type="MeshInstance" parent="."]
@@ -60,12 +58,6 @@ material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Ball"]
 shape = SubResource( 6 )
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0 )
-
-[node name="Player2" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.027, 0.95, 2.074 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1.16934e-07, 0.696314, -0.717737, 1.13444e-07, 0.717737, 0.696314, 1, -7.10543e-15, -1.62921e-07, -13.8017, 14.4001, 0 )

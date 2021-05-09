@@ -8,7 +8,9 @@ func set_target(pos: Vector3):
 	persistent_state.target = Vector3(pos.x, persistent_state.target.y, pos.z) 
 
 func _physics_process(_delta):
+	print("run")
 	# Move player
+	print(persistent_state.target.distance_to(persistent_state.global_transform.origin))
 	if persistent_state.target.distance_to(persistent_state.global_transform.origin) > 0.2:
 		# Rotate
 		var angle = atan2(persistent_state.velocity.x, persistent_state.velocity.z)

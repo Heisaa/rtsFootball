@@ -1,5 +1,7 @@
 extends KinematicBody
 
+class_name Player
+
 var selected = false
 var velocity = Vector3(0,0,0)
 var target = Vector3()
@@ -8,7 +10,7 @@ var state
 var state_factory
 
 onready var outline = $MeshInstance/Outline
-onready var player_manager = get_node("../PlayerManager")
+onready var player_manager = get_parent()
 
 signal was_selected
 signal was_deselected
@@ -45,7 +47,7 @@ func change_state(new_state_name):
 	if is_instance_valid(state):
 		state.queue_free()
 	state = state_factory.get_state(new_state_name).new()
-	#state.setup(funcref(self, "change_state"), self)
+	state.setup(funcref(self, "change_state"), self)
 	state.name = "current_state"
 	add_child(state)
 
