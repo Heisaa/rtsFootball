@@ -48,10 +48,6 @@ config/name="footballRTS"
 run/main_scene="res://Scenes/Main/Main.tscn"
 config/icon="res://icon.png"
 
-[display]
-
-window/size/fullscreen=true
-
 [input]
 
 move_command={

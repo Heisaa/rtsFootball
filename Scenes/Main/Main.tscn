@@ -1,66 +1,62 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/textures/Grass_001_SD/Grass_001_NORM.jpg" type="Texture" id=1]
 [ext_resource path="res://assets/textures/Grass_001_SD/Grass_001_COLOR.jpg" type="Texture" id=2]
 [ext_resource path="res://Objects/PlayerManager/PlayerManager.gd" type="Script" id=3]
+[ext_resource path="res://Objects/Goal/Goal.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/FPSLabel/Label.gd" type="Script" id=5]
+[ext_resource path="res://Objects/Stadium/Stadium.gd" type="Script" id=6]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="PhysicsMaterial" id=1]
+bounce = 0.4
+
+[sub_resource type="SphereMesh" id=2]
+radius = 0.11
+height = 0.22
+
+[sub_resource type="SphereShape" id=3]
+radius = 0.11
+
+[sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 2 )
 normal_enabled = true
 normal_scale = 1.0
 normal_texture = ExtResource( 1 )
 uv1_scale = Vector3( 105, 68, 1 )
 
-[sub_resource type="PlaneMesh" id=2]
-material = SubResource( 1 )
+[sub_resource type="PlaneMesh" id=5]
+material = SubResource( 4 )
 size = Vector2( 105, 68 )
 
-[sub_resource type="ConcavePolygonShape" id=3]
+[sub_resource type="ConcavePolygonShape" id=6]
 data = PoolVector3Array( 52.5, 0, 34, -52.5, 0, 34, 52.5, 0, -34, -52.5, 0, 34, -52.5, 0, -34, 52.5, 0, -34 )
-
-[sub_resource type="PhysicsMaterial" id=4]
-bounce = 0.4
-
-[sub_resource type="SphereMesh" id=5]
-radius = 0.11
-height = 0.22
-
-[sub_resource type="SphereShape" id=6]
-radius = 0.11
 
 [node name="Main" type="Spatial"]
 
 [node name="PlayerManager" type="Spatial" parent="."]
 script = ExtResource( 3 )
 
-[node name="Pitch" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="StaticBody" type="StaticBody" parent="Pitch"]
-
-[node name="CollisionShape" type="CollisionShape" parent="Pitch/StaticBody"]
-shape = SubResource( 3 )
-
 [node name="Ball" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.77568, 2.8483, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.776, 1, 0 )
 mass = 0.5
-physics_material_override = SubResource( 4 )
-angular_damp = 0.999
+physics_material_override = SubResource( 1 )
+continuous_cd = true
+angular_damp = 10.0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="MeshInstance" type="MeshInstance" parent="Ball"]
-mesh = SubResource( 5 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Ball"]
-shape = SubResource( 6 )
+shape = SubResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -1.16934e-07, 0.696314, -0.717737, 1.13444e-07, 0.717737, 0.696314, 1, -7.10543e-15, -1.62921e-07, -13.8017, 14.4001, 0 )
+transform = Transform( -1, -7.57104e-08, 4.37114e-08, 0, 0.5, 0.866025, -8.74228e-08, 0.866025, -0.5, 0, 50, -30 )
+fov = 25.0
+far = 354.2
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.808654, 0.0838899, 0.582273, -0.427965, 0.763007, 0.484424, -0.40364, -0.640924, 0.65291, 84.6652, 70.6447, 92.0659 )
@@ -72,3 +68,21 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Stadium" type="Spatial" parent="."]
+script = ExtResource( 6 )
+
+[node name="Pitch" type="MeshInstance" parent="Stadium"]
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Stadium/Pitch"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Stadium/Pitch/StaticBody"]
+shape = SubResource( 6 )
+
+[node name="Goal1" parent="Stadium" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -3.65 )
+
+[node name="Goal2" parent="Stadium" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, 0, 3.65 )

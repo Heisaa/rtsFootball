@@ -29,9 +29,9 @@ func _process(_delta):
 	var m_pos = get_viewport().get_mouse_position()
 	if Input.is_action_just_pressed("move_command"):
 		var ray_result = raycast_from_mouse(m_pos, 1)
-		
-		for player in selected_players:
-			player.set_target(ray_result.position)
+		if not ray_result.empty():
+			for player in selected_players:
+				player.set_target(ray_result.position)
 
 ###############
 ### Utility ###

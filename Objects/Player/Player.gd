@@ -2,6 +2,8 @@ extends KinematicBody
 
 class_name Player
 
+const STOP_DISTANCE = 0.05
+
 var selected = false
 var velocity = Vector3(0,0,0)
 var target = Vector3()
