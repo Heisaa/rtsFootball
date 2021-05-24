@@ -6,16 +6,13 @@
 [ext_resource path="res://Objects/Goal/Goal.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/FPSLabel/Label.gd" type="Script" id=5]
 [ext_resource path="res://Objects/Stadium/Stadium.gd" type="Script" id=6]
+[ext_resource path="res://Objects/SoccerBall/soccer_ball.tscn" type="PackedScene" id=7]
 
 [sub_resource type="PhysicsMaterial" id=1]
 bounce = 0.4
 
-[sub_resource type="SphereMesh" id=2]
-radius = 0.11
-height = 0.22
-
 [sub_resource type="SphereShape" id=3]
-radius = 0.11
+radius = 0.156431
 
 [sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 2 )
@@ -46,12 +43,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="MeshInstance" type="MeshInstance" parent="Ball"]
-mesh = SubResource( 2 )
-material/0 = null
-
 [node name="CollisionShape" type="CollisionShape" parent="Ball"]
 shape = SubResource( 3 )
+
+[node name="soccer_ball" parent="Ball" instance=ExtResource( 7 )]
+transform = Transform( 15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1, -7.57104e-08, 4.37114e-08, 0, 0.5, 0.866025, -8.74228e-08, 0.866025, -0.5, 0, 50, -30 )

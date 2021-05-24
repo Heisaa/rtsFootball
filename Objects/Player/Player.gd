@@ -7,6 +7,7 @@ const STOP_DISTANCE = 0.05
 var selected = false
 var velocity = Vector3(0,0,0)
 var target = Vector3()
+var team
 
 var state
 var state_factory
